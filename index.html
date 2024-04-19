@@ -19,9 +19,10 @@
       min="4"
       max="64"
     />
-    <button>Copiar senha</button>
+    <button id="copyword">Copiar senha</button>
 
     <script>
+      const inputEl = document.querySelector("#password");
       let passwordLength = 16;
 
       // Função geradora da senha
@@ -37,7 +38,7 @@
         }
 
         // Inserindo o password gerado no input
-        const inputEl = document.querySelector("#password");
+
         inputEl.value = password;
       }
 
@@ -49,7 +50,16 @@
         generatePassword();
       });
 
+      // Function copy password
+      function copy() {
+        navigator.clipboard.writeText(inputEl.value);
+      }
+
+      const copyButtonEl = document.querySelector("#copyword");
+      copyButtonEl.addEventListener("click", copy);
+
       //Functions
+
       generatePassword();
     </script>
   </body>
