@@ -34,9 +34,20 @@
             <input type="text" name="password" id="password" />
           </div>
           <div class="actions">
-            <button id="copy2">C</button>
-            <button id="renew">R</button>
+            <button id="copy-word1">
+              <img src="copy.svg" alt="copy" width="42" />
+            </button>
+            <button id="renew">
+              <img src="renew.svg" alt="renew" width="42" />
+            </button>
           </div>
+        </div>
+        <div class="security-indicator">
+          <div
+            id="security-indicator-bar"
+            class="bar safe"
+            style="width: 90%"
+          ></div>
         </div>
       </section>
 
@@ -48,7 +59,7 @@
         min="4"
         max="64"
       />
-      <button id="copyword">Copiar senha</button>
+      <button id="copy-word2">Copiar senha</button>
     </main>
 
     <script>
@@ -85,8 +96,8 @@
         navigator.clipboard.writeText(inputEl.value);
       }
 
-      const copyButtonEl = document.querySelector("#copyword");
-      copyButtonEl.addEventListener("click", copy);
+      document.querySelector("#copy-word1").addEventListener("click", copy);
+      document.querySelector("#copy-word2").addEventListener("click", copy);
 
       //Functions
 
