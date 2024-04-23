@@ -43,7 +43,7 @@
           </div>
         </div>
         <div class="security-indicator">
-          <div id="security-indicator-bar" class="bar" style="width: 90%"></div>
+          <div id="security-indicator-bar" class="bar critical"></div>
         </div>
       </section>
 
@@ -93,6 +93,10 @@
       const upperCaseCheckEl = document.querySelector("#uppercase-check");
       const numbersCheckEl = document.querySelector("#numbers-check");
       const symbolCheckEl = document.querySelector("#symbol-check");
+
+      const securityIndicatorBar = document.querySelector(
+        "#security-indicator-bar"
+      );
       let passwordLength = 16;
 
       // Função geradora da senha
@@ -125,6 +129,41 @@
         // Inserindo o password gerado no input
 
         inputEl.value = password;
+        calculateQuality();
+      }
+
+      function calculateQuality() {
+        const percent = Math.round(
+          (passwordLength / 64) * 25 +
+            (upperCaseCheckEl.checked ? 15 : 0) +
+            (numbersCheckEl.checked ? 25 : 0) +
+            (symbolCheckEl.checked ? 35 : 0)
+        );
+
+        securityIndicatorBar.style.width = `${percent}%`;
+
+        if (percent > 69) {
+          //safe
+          securityIndicatorBar.classList.remove("critical");
+          securityIndicatorBar.classList.remove("warning");
+          securityIndicatorBar.classList.add("safe");
+        } else if (percent > 50) {
+          //warning
+          securityIndicatorBar.classList.remove("critical");
+          securityIndicatorBar.classList.remove("safe");
+          securityIndicatorBar.classList.add("warning");
+        } else {
+          //critical
+          securityIndicatorBar.classList.remove("safe");
+          securityIndicatorBar.classList.remove("warning");
+          securityIndicatorBar.classList.add("critical");
+        }
+
+        if (percent >= 100) {
+          securityIndicatorBar.classList.add("completed");
+        } else {
+          securityIndicatorBar.classList.remove("completed");
+        }
       }
 
       // Adicionando o Range
@@ -132,6 +171,8 @@
 
       passwordLengthEl.addEventListener("input", function () {
         passwordLength = passwordLengthEl.value;
+        document.querySelector("#password-length-text").innerText =
+          passwordLength;
         generatePassword();
       });
 
