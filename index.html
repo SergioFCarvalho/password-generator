@@ -82,17 +82,38 @@
         </div>
       </section>
 
-      <button id="copy-word2">Copiar senha</button>
+      <div class="submit">
+        <button id="copy-word2">Copiar senha</button>
+      </div>
     </main>
 
     <script>
       const inputEl = document.querySelector("#password");
+
+      const upperCaseCheckEl = document.querySelector("#uppercase-check");
+      const numbersCheckEl = document.querySelector("#numbers-check");
+      const symbolCheckEl = document.querySelector("#symbol-check");
       let passwordLength = 16;
 
       // Função geradora da senha
       function generatePassword() {
-        const chars =
-          "abcdefghjkmnpqrstuvwyzABCDEFGHJKMNPQRSTUVWYZ123456789?!@&*$#";
+        let chars = "abcdefghjkmnpqrstuvwyz";
+
+        const upperCaseChars = "ABCDEFGHJKMNPQRSTUVWYZ";
+        const numbersChars = "123456789";
+        const symbolChars = "?!@&*$#+/";
+
+        if (upperCaseCheckEl.checked) {
+          chars += upperCaseChars;
+        }
+
+        if (numbersCheckEl.checked) {
+          chars += numbersChars;
+        }
+
+        if (symbolCheckEl.checked) {
+          chars += symbolChars;
+        }
 
         let password = "";
 
@@ -113,6 +134,10 @@
         passwordLength = passwordLengthEl.value;
         generatePassword();
       });
+
+      upperCaseCheckEl.addEventListener("click", generatePassword);
+      numbersCheckEl.addEventListener("click", generatePassword);
+      symbolCheckEl.addEventListener("click", generatePassword);
 
       // Function copy password
       function copy() {
