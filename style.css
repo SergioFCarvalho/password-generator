@@ -54,6 +54,17 @@ main {
   user-select: none;
 }
 
+/* Ajustando fontes de acordo com tamanho */
+.password .text input.font-sm {
+  font-size: 1.8rem;
+}
+.password .text input.font-xs {
+  font-size: 1.5rem;
+}
+.password .text input.font-xxs {
+  font-size: 1rem;
+}
+
 /* Formatando button */
 .password .actions button {
   background-color: transparent;
